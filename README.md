@@ -3,7 +3,8 @@
 A CLI app which oversees a simplified version of a library. Different actions can be executed from the perspective of either a Client or a Librarian. 
 A Client has to first sign in and then log in to have access to the app.
 
-The following classes are included:
+---
+#### The following classes are included:
 1) Lendable Item -> an abstract class, describing any item which can be borrowed by the client
 2) Book
 3) AudioBook
@@ -16,9 +17,12 @@ The following classes are included:
 10) Menu -> singleton, offers a simple console interface showing the services
 11) Client Services -> utility class
 12) Librarian Services -> utility class
+    
 *) Librarian and Activity Log are classes created, but not yet used due to lack of time
 
-The following actions can be performed:
+---    
+#### The following actions can be performed:
+
 As a Client:
 1) Create account
 2) Log in
@@ -29,6 +33,7 @@ As a Client:
 7) See all your lending cards (which items you borrowed and until when you should bring them back) as well as how many overdue items you have
 8) Edit your profile
 9) Delete your profile
+
 As a Librarian:
 1) Add an item
 2) Edit an item
