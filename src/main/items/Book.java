@@ -3,7 +3,7 @@ package items;
 import java.util.Objects;
 
 public class Book extends LendableItem{
-    Author author;
+    protected Author author;
 
     public Book()
     {
@@ -15,6 +15,10 @@ public class Book extends LendableItem{
         super(name, genre, total);
         this.author = author;
     }
+
+    // getters
+    public Author getAuthor() { return this.author; }
+
 
     @Override
     public boolean equals(Object o) {
@@ -37,6 +41,4 @@ public class Book extends LendableItem{
                 "Author = " + author + '\n' +
                 "Genre = " + genre + '\n';
     }
-
-    public Author getAuthor() { return this.author; }
 }

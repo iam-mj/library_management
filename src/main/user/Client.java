@@ -7,7 +7,8 @@ import java.time.LocalDate;
 import java.util.*;
 
 public class Client extends User{
-    SortedSet<LendingCard> lendingCards;
+    private SortedSet<LendingCard> lendingCards;
+
     public Client()
     {
         super();
@@ -20,14 +21,7 @@ public class Client extends User{
         lendingCards = new TreeSet<LendingCard>();
     }
 
-    @Override
-    public String toString() {
-        return "Client " + firstName + ' ' + lastName + ":\n" +
-                "Id = " + id + '\n' +
-                "Email = '" + email + '\n' +
-                "Number of lending cards = " + lendingCards.size();
-    }
-
+    // getters
     public SortedSet<LendingCard> getLendingCards()
     {
         // return a reference to a copy
@@ -65,10 +59,17 @@ public class Client extends User{
 
     public void returnItem(LendingCard lendingCard)
     {
-        // increse the available counter of the item
+        // increase the available counter of the item
         lendingCard.getItem().broughtBack();
 
         // delete the lending card
         lendingCards.remove(lendingCard);
+    }
+
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "Number of lending cards: " + lendingCards.size();
     }
 }

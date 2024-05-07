@@ -77,6 +77,7 @@ public class Menu { // I should make it singleton
                     {
                         System.out.println("\nInvalid login... Would you like to try again? [0/1]: ");
                         short goBack = in.nextShort();
+                        in.nextLine(); // consume the \n character left
                         if(goBack == 0)
                             break;
                         continue;

@@ -6,11 +6,11 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 public class LendingCard implements Comparable<LendingCard> {
-    static int lendingPeriod = 3; // in weeks
-    Client client;
-    LendableItem item;
-    LocalDate lentDate; // format "dd/mm/yyyy"
-    LocalDate bringBackDate; // format "dd/mm/yyyy"
+    private static int lendingPeriod = 3; // in weeks
+    private Client client;
+    private LendableItem item;
+    private LocalDate lentDate; // format "dd/mm/yyyy"
+    private LocalDate bringBackDate; // format "dd/mm/yyyy"
 
     public LendingCard()
     {
@@ -29,6 +29,17 @@ public class LendingCard implements Comparable<LendingCard> {
         this.bringBackDate = lentDate.plusWeeks(lendingPeriod);
     }
 
+    // getters
+    public LendableItem getItem()
+    {
+        return item;
+    }
+    public LocalDate getBringBackDate()
+    {
+        return bringBackDate;
+    }
+
+
     @Override
     public int compareTo(LendingCard o) {
         // we compare them after the lending date
@@ -39,14 +50,6 @@ public class LendingCard implements Comparable<LendingCard> {
         if(this.equals(o)) // return 0 only if they're actually equal
             return 0;
         return 1;
-    }
-
-    @Override
-    public String toString() {
-        return "Client = " + client.getName() + '\n' +
-                "Item = " + item.name + '\n' +
-                "Lent Date = " + lentDate + '\n' +
-                "Bring Back Date = " + bringBackDate;
     }
 
     // lending card are equal if they have the same client & item
@@ -63,12 +66,11 @@ public class LendingCard implements Comparable<LendingCard> {
         return Objects.hash(client, item);
     }
 
-    public LendableItem getItem()
-    {
-        return item;
-    }
-    public LocalDate getBringBackDate()
-    {
-        return bringBackDate;
+    @Override
+    public String toString() {
+        return "Client = " + client.getName() + '\n' +
+                "Item = " + item.name + '\n' +
+                "Lent Date = " + lentDate + '\n' +
+                "Bring Back Date = " + bringBackDate;
     }
 }

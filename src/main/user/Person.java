@@ -7,7 +7,7 @@ public abstract class Person {
     protected String firstName;
     protected String lastName;
 
-    // publici fiindca avem Author intr-un pachet diferit
+    // public 'cause we have Author in a different package
     public Person()
     {
         firstName = "";
@@ -19,19 +19,7 @@ public abstract class Person {
         this.lastName = lastName;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Person person = (Person) o;
-        return Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(firstName, lastName);
-    }
-
+    // getters and setters
     public String getName()
     {
         return firstName + ' ' + lastName;
@@ -46,5 +34,24 @@ public abstract class Person {
     public void setLastName(String lastName)
     {
         this.lastName = lastName;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Person person = (Person) o;
+        return Objects.equals(firstName, person.firstName) && Objects.equals(lastName, person.lastName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstName, lastName);
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + getName();
     }
 }

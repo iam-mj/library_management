@@ -3,8 +3,8 @@ package items;
 import java.util.Objects;
 
 public class AudioBook extends Book{
-    Format format;
-    int duration;
+    private Format format;
+    private int duration;
 
     public AudioBook()
     {
@@ -29,6 +29,7 @@ public class AudioBook extends Book{
     {
         this.duration = duration;
     }
+
 
     @Override
     public boolean equals(Object o) {

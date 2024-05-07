@@ -3,7 +3,7 @@ package items;
 import java.util.Objects;
 
 public class DVDGame extends LendableItem{
-    String company;
+    private String company;
 
     public DVDGame()
     {
@@ -21,6 +21,7 @@ public class DVDGame extends LendableItem{
     {
         this.company = company;
     }
+
 
     @Override
     public boolean equals(Object o) {

@@ -5,7 +5,7 @@ package user;
 // the first project checkpoint
 
 public class Librarian extends User {
-    protected String workplace;
+    private String workplace;
 
     Librarian() {
         super();
@@ -16,5 +16,11 @@ public class Librarian extends User {
     {
         super(firstName, lastName, email, password);
         this.workplace = workplace;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() +
+                "Workplace: " + workplace + '\n';
     }
 }

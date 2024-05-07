@@ -41,13 +41,12 @@ public abstract class LendableItem {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LendableItem that = (LendableItem) o;
-        return id == that.id && total == that.total && available == that.available
-                && Objects.equals(name, that.name) && Objects.equals(genre, that.genre);
+        return Objects.equals(name, that.name) && Objects.equals(genre, that.genre);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, genre, total, available);
+        return Objects.hash(name, genre);
     }
 
     // getters

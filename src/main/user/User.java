@@ -27,20 +27,6 @@ public abstract class User extends Person{
         this.password = password;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        User user = (User) o;
-        return id == user.id && Objects.equals(email, user.email) && Objects.equals(password, user.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), id, email, password);
-    }
-
     // getters
     public String getEmail()
     {
@@ -61,5 +47,26 @@ public abstract class User extends Person{
     public void setPassword(String password)
     {
         this.password = password;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        User user = (User) o;
+        return Objects.equals(email, user.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), email);
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + '\n' +
+                "Email: " + getEmail() + '\n';
     }
 }
