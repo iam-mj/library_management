@@ -15,6 +15,15 @@ public class DVDGame extends LendableItem{
         super(name, gender, total);
         this.company = company;
     }
+    // for the data from the db
+    public DVDGame(int id, String name, String gender, int total, int available, String company)
+    {
+        super(id, name, gender, total, available);
+        this.company = company;
+    }
+
+    //getters
+    public String getCompany() { return company; }
 
     // setters
     public void setCompany(String company)

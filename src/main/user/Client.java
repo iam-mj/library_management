@@ -1,5 +1,6 @@
 package user;
 
+import database.dao.LendingCardDAO;
 import items.LendableItem;
 import items.LendingCard;
 
@@ -21,6 +22,12 @@ public class Client extends User{
         lendingCards = new TreeSet<LendingCard>();
     }
 
+    public Client(int id, String firstName, String lastName, String email, String password)
+    {
+        super(id, firstName, lastName, email, password);
+        lendingCards = new TreeSet<>();
+    }
+
     // getters
     public SortedSet<LendingCard> getLendingCards()
     {
@@ -40,6 +47,9 @@ public class Client extends User{
         return nr;
     }
 
+    // setters
+    public void setLendingCards(SortedSet<LendingCard> lendingCards) { this.lendingCards = lendingCards; }
+
     // when a client borrows an item
     // returns true is successful
     public boolean borrow(LendableItem item)
@@ -51,6 +61,8 @@ public class Client extends User{
         if(lendingCards.contains(lendingCard))
             return false;
 
+        boolean success = LendingCardDAO.create(lendingCard);
+        if(!success) return false;
         lendingCards.add(lendingCard);
 
         item.borrow(); // decrease the available counter
@@ -62,7 +74,9 @@ public class Client extends User{
         // increase the available counter of the item
         lendingCard.getItem().broughtBack();
 
-        // delete the lending card
+        // delete the lending card from the db as well
+        LendingCardDAO.delete(lendingCard.getId());
+        // as from the code
         lendingCards.remove(lendingCard);
     }
 

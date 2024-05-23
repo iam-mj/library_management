@@ -1,16 +1,26 @@
 package items;
 
+import database.dao.LendingCardDAO;
 import user.Client;
 
 import java.time.LocalDate;
 import java.util.Objects;
 
 public class LendingCard implements Comparable<LendingCard> {
+    private int id;
+    private static int nrInstances;
     private static int lendingPeriod = 3; // in weeks
     private Client client;
     private LendableItem item;
     private LocalDate lentDate; // format "dd/mm/yyyy"
     private LocalDate bringBackDate; // format "dd/mm/yyyy"
+
+    static {
+        nrInstances = LendingCardDAO.getMax() + 1;
+    }
+    {
+        id = nrInstances + 1;
+    }
 
     public LendingCard()
     {
@@ -23,13 +33,25 @@ public class LendingCard implements Comparable<LendingCard> {
     // we need to access it from other packages
     public LendingCard(Client client, LendableItem item)
     {
+        this.id = 0;
         this.client = client;
         this.item = item;
         this.lentDate = LocalDate.now();
         this.bringBackDate = lentDate.plusWeeks(lendingPeriod);
     }
+    // for data from the db
+    public LendingCard(int id, Client client, LendableItem item, LocalDate lentDate, LocalDate bringBackDate)
+    {
+        this.id = id;
+        this.client = client;
+        this.item = item;
+        this.lentDate = lentDate;
+        this.bringBackDate = bringBackDate;
+    }
 
     // getters
+    public int getId() { return id; }
+    public Client getClient() { return client; }
     public LendableItem getItem()
     {
         return item;
@@ -37,6 +59,15 @@ public class LendingCard implements Comparable<LendingCard> {
     public LocalDate getBringBackDate()
     {
         return bringBackDate;
+    }
+    // for the db
+    public String getLentDateString()
+    {
+        return "to_date('" + lentDate.toString() + "', 'YYYY-MM-DD')";
+    }
+    public String getBringBackDateString()
+    {
+        return "to_date('" + bringBackDate.toString() + "', 'YYYY-MM-DD')";
     }
 
 

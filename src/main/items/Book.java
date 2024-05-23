@@ -15,10 +15,18 @@ public class Book extends LendableItem{
         super(name, genre, total);
         this.author = author;
     }
+    // constructor for data from db
+    public Book(int id, String name, String genre, int total, int available, Author author)
+    {
+        super(id, name, genre, total, available);
+        this.author = author;
+    }
 
     // getters
     public Author getAuthor() { return this.author; }
 
+    // setters
+    public void setAuthor(Author author) { this.author = author; }
 
     @Override
     public boolean equals(Object o) {

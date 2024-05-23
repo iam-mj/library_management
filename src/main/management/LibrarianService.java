@@ -1,7 +1,9 @@
 package management;
 
+import database.dao.*;
 import items.*;
 import user.Client;
+import user.Person;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -25,12 +27,16 @@ public abstract class LibrarianService {
         total = in.nextInt();
         Author author = new Author(authorFirstName, authorLastName);
         Book book = new Book(title, genre, total, author);
+
         items.add(book);
+        BookDAO.create(book);
+
         System.out.println("\nBook added!");
         System.out.println("Would you like to:");
         System.out.println("1) Add another");
         System.out.println("2) Go back");
         System.out.println("\nYour choice: ");
+
         short addChoice = in.nextShort();
         in.nextLine(); // consume the \n character left
         return addChoice;
@@ -72,6 +78,7 @@ public abstract class LibrarianService {
         duration = in.nextInt();
         System.out.println("How many copies are there? ");
         total = in.nextInt();
+
         // create the author object
         Author author = new Author(firstName, lastName);
 
@@ -80,6 +87,8 @@ public abstract class LibrarianService {
                 format, duration);
 
         items.add(audioBook);
+        AudioBookDAO.create(audioBook);
+
         System.out.println("\nAudioBook added!");
         System.out.println("Would you like to:");
         System.out.println("1) Add another");
@@ -104,7 +113,10 @@ public abstract class LibrarianService {
         System.out.println("How many copies are there?");
         total = in.nextInt();
         DVDGame game = new DVDGame(name, genre, total, company);
+
         items.add(game);
+        DVDGameDAO.create(game);
+
         System.out.println("\nGame added!");
         System.out.println("Would you like to:");
         System.out.println("1) Add another");
@@ -217,6 +229,7 @@ public abstract class LibrarianService {
                 System.out.println("\nNew title: ");
                 String title = in.nextLine();
                 item.setName(title);
+                LendableItemDAO.update(item.getId(), "name", '\'' + title + '\'');
                 Menu.clearScreen();
                 System.out.println(item);
                 System.out.println("\nTitle changed!");
@@ -227,6 +240,7 @@ public abstract class LibrarianService {
                 System.out.println("\nNew genre: ");
                 String genre = in.nextLine();
                 item.setGenre(genre);
+                LendableItemDAO.update(item.getId(), "genre", '\'' + genre + '\'');
                 System.out.println("\nGenre changed!");
                 break;
             }
@@ -239,7 +253,9 @@ public abstract class LibrarianService {
                 Menu.clearScreen();
                 if(item instanceof Book && !(item instanceof AudioBook))
                 {
-                    ((Book)item).getAuthor().setFirstName(firstName);
+                    Author author = ((Book)item).getAuthor();
+                    author.setFirstName(firstName);
+                    PersonDAO.update(author.getId(), "firstname", '\'' + firstName + '\'');
                     System.out.println(item);
                     System.out.println("\nAuthor's first name was changed!");
                 }
@@ -259,7 +275,9 @@ public abstract class LibrarianService {
                 // downcast needed !!
                 if(item instanceof Book && !(item instanceof AudioBook))
                 {
-                    ((Book)item).getAuthor().setLastName(lastName);
+                    Author author = ((Book)item).getAuthor();
+                    author.setLastName(lastName);
+                    PersonDAO.update(author.getId(), "lastname", '\'' + lastName + '\'');
                     System.out.println(item);
                     System.out.println("\nAuthor's first name was changed!");
                 }
@@ -295,6 +313,7 @@ public abstract class LibrarianService {
                 System.out.println("\nNew title: ");
                 String title = in.nextLine();
                 item.setName(title);
+                LendableItemDAO.update(item.getId(), "name", '\'' + title + '\'');
                 Menu.clearScreen();
                 System.out.println(item);
                 System.out.println("\nTitle changed!");
@@ -305,6 +324,7 @@ public abstract class LibrarianService {
                 System.out.println("\nNew genre: ");
                 String genre = in.nextLine();
                 item.setGenre(genre);
+                LendableItemDAO.update(item.getId(), "genre", '\'' + genre + '\'');
                 Menu.clearScreen();
                 System.out.println(item);
                 System.out.println("\nGenre changed!");
@@ -319,7 +339,9 @@ public abstract class LibrarianService {
                 // it should be an audiobook, but we'll still check
                 if(item instanceof AudioBook)
                 {
-                    ((AudioBook)item).getAuthor().setFirstName(firstName);
+                    Author author = ((AudioBook)item).getAuthor();
+                    author.setFirstName(firstName);
+                    PersonDAO.update(author.getId(), "firstname", '\'' + firstName + '\'');
                     System.out.println(item);
                     System.out.println("\nAuthor's first name was changed!");
                 }
@@ -340,7 +362,9 @@ public abstract class LibrarianService {
                 // it should be an audiobook, but we'll still check
                 if(item instanceof AudioBook)
                 {
-                    ((AudioBook)item).getAuthor().setLastName(lastName);
+                    Author author = ((AudioBook)item).getAuthor();
+                    author.setLastName(lastName);
+                    PersonDAO.update(author.getId(), "lastname", '\'' + lastName + '\'');
                     System.out.println(item);
                     System.out.println("\nAuthor's last name was changed!");
                 }
@@ -380,6 +404,8 @@ public abstract class LibrarianService {
                 if(item instanceof AudioBook)
                 {
                     ((AudioBook)item).setFormat(format);
+                    AudioBookDAO.update(item.getId(), "format",
+                                    '\'' + format.toString() + '\'');
                     System.out.println(item);
                     System.out.println("\nFormat changed!");
                 }
@@ -401,6 +427,7 @@ public abstract class LibrarianService {
                 if(item instanceof AudioBook)
                 {
                     ((AudioBook)item).setDuration(duration);
+                    AudioBookDAO.update(item.getId(), "duration", String.valueOf(duration));
                     System.out.println(item);
                     System.out.println("\nDuration changed!");
                 }
@@ -433,6 +460,7 @@ public abstract class LibrarianService {
                 System.out.println("\nNew title: ");
                 String title = in.nextLine();
                 item.setName(title);
+                LendableItemDAO.update(item.getId(), "name", '\'' + title + '\'');
                 Menu.clearScreen();
                 System.out.println(item);
                 System.out.println("\nTitle changed!");
@@ -444,6 +472,7 @@ public abstract class LibrarianService {
                 String genre = in.nextLine();
                 Menu.clearScreen();
                 item.setGenre(genre);
+                LendableItemDAO.update(item.getId(), "genre", '\'' + genre + '\'');
                 System.out.println(item);
                 System.out.println("\nGenre changed!");
                 break;
@@ -458,6 +487,7 @@ public abstract class LibrarianService {
                 if(item instanceof DVDGame)
                 {
                     ((DVDGame)item).setCompany(company);
+                    DVDGameDAO.update(item.getId(), "company", '\'' + company + '\'');
                     System.out.println(item);
                     System.out.println("Company changed!");
                 }
@@ -493,6 +523,7 @@ public abstract class LibrarianService {
                 short response = in.nextShort();
                 if(response == 1)
                 {
+                    LendableItemDAO.delete(items.get(itemIndex).getId());
                     items.remove(itemIndex);
                     System.out.println("Item deleted successfully!");
                 }

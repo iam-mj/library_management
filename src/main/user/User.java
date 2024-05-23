@@ -3,17 +3,9 @@ package user;
 import java.util.Objects;
 
 public abstract class User extends Person{
-    final int id;
-    static int nrInstances;
     protected String email;
     protected String password; // can I keep it hidden?
 
-    static {
-        nrInstances = 0;
-    }
-    {
-        id = ++nrInstances;
-    }
     User()
     {
         super();
@@ -23,6 +15,12 @@ public abstract class User extends Person{
     User(String firstName, String lastName, String email, String password)
     {
         super(firstName, lastName);
+        this.email = email;
+        this.password = password;
+    }
+    User(int id, String firstName, String lastName, String email, String password)
+    {
+        super(id, firstName, lastName);
         this.email = email;
         this.password = password;
     }

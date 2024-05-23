@@ -19,6 +19,18 @@ public class AudioBook extends Book{
         this.format = format;
         this.duration = duration;
     }
+    // for data from db
+    public AudioBook(int id, String name, String gender, int total, int available, Author author,
+                     Format format, int duration)
+    {
+        super(id, name, gender, total, available, author);
+        this.format = format;
+        this.duration = duration;
+    }
+
+    // getters
+    public int getDuration() { return duration; }
+    public Format getFormat()  { return format; }
 
     // setters
     public void setFormat(Format format)

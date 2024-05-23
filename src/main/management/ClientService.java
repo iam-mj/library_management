@@ -1,5 +1,9 @@
 package management;
 
+import database.dao.ClientDAO;
+import database.dao.LendingCardDAO;
+import database.dao.PersonDAO;
+import database.dao.UserDAO;
 import user.Client;
 import items.LendableItem;
 import items.LendingCard;
@@ -35,6 +39,8 @@ public abstract class ClientService {
         }
         Client newClient = new Client(firstName, lastName, email, password);
         clients.add(newClient);
+        // adaugam clientul si in baza de date
+        ClientDAO.create(newClient);
         Menu.clearScreen();
     }
 
@@ -224,6 +230,9 @@ public abstract class ClientService {
                     System.out.println("\nYour new first name: ");
                     String newFirstName = in.nextLine();
                     currentClient.setFirstName(newFirstName);
+                    //update in the db as well
+                    PersonDAO.update(currentClient.getId(), "firstname",
+                            '\'' + newFirstName + '\'');
                     break;
                 }
                 case 2:
@@ -231,6 +240,9 @@ public abstract class ClientService {
                     System.out.println("\nYour new last name: ");
                     String newLastName = in.nextLine();
                     currentClient.setLastName(newLastName);
+                    //update in the db as well
+                    PersonDAO.update(currentClient.getId(), "lastname",
+                            '\'' + newLastName + '\'');
                     break;
                 }
                 case 3:
@@ -238,6 +250,8 @@ public abstract class ClientService {
                     System.out.println("\nYour new email: ");
                     String newEmail = in.nextLine();
                     currentClient.setEmail(newEmail);
+                    UserDAO.update(currentClient.getId(), "email",
+                            '\'' + newEmail + '\'');
                     break;
                 }
                 case 4:
@@ -245,6 +259,8 @@ public abstract class ClientService {
                     System.out.println("\nYour new password: ");
                     String newPassword = in.nextLine();
                     currentClient.setPassword(newPassword);
+                    UserDAO.update(currentClient.getId(), "password",
+                            '\'' + newPassword + '\'');
                     break;
                 }
             }
@@ -274,6 +290,7 @@ public abstract class ClientService {
             else {
                 // delete the client from the list
                 clients.remove(currentClient);
+                ClientDAO.delete(currentClient.getId());
                 Menu.clearScreen();
                 System.out.println("Your account has been deleted!");
                 System.out.println("Would you like to:");

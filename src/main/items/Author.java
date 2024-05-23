@@ -12,6 +12,7 @@ public class Author extends Person {
     {
         super(firstName, lastName);
     }
+    public Author(int id, String firstName, String lastName) { super(id, firstName, lastName); }
 
     @Override
     public String toString()

@@ -3,29 +3,31 @@ package management;
 import user.User;
 import items.LendableItem;
 
+import java.io.FileWriter;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
-// intended to be used to monitor both the librarians' and the clients' activity,
-// but I couldn't find the time to use it before the first project checkpoint
+// used to monitor CRUD actions
+// writes them to a CSV file
 
-public class ActivityLog {
-    User user;
-    LendableItem item;
-    LocalDateTime date; // will be kept in the format: "dd/mm/yyyy hh:mm"
-    String action;
+public abstract class ActivityLog {
+    private static final String filePath = "src/main/management/activity.csv";
 
-    ActivityLog()
+    public static void writeAction(String action)
     {
-        user = null;
-        item = null;
-        date = null;
-        action = "";
-    }
-    ActivityLog(User user, LendableItem item, LocalDateTime date, String action)
-    {
-        this.user = user;
-        this.item = item;
-        this.date = date;
-        this.action = action;
+        LocalDateTime time = LocalDateTime.now();
+        // cast the date time object to a String to write it to file
+        String formattedTime = time.format(DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm:ss"));
+
+        try (FileWriter writer = new FileWriter(filePath, true))
+        {
+            writer.append(action + ", " + formattedTime + '\n');
+        }
+        catch (Exception e)
+        {
+            System.out.println("Exception when writing CRUD action to file: " + action);
+            System.out.println(e);
+        }
     }
 }
